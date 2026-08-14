@@ -90,13 +90,74 @@
 // // 6.
 // var date = new Date();
 // var milliseconds = date.getTime();
-// var seconds = milliseconds / 100
+// var seconds = milliseconds / 1000
 // var minutes = seconds / 60
 // // console.log(milliseconds, seconds, minutes)
 // document.write("Current Date: " + date);
 // document.write("<br> Elapsed milliseconds since January 1, 1970: " + milliseconds);
 // document.write("<br> Elapsed minutes since January 1, 1970: " + minutes);
 
-// 7.
-var hour = new Date().getHours();
-// if(hour >)
+// // 7.
+// var hour = new Date().getHours();
+// if (hour >= 12 && hour <= 23) {
+//     alert("Its PM")
+// } else {
+//     alert("Its AM")
+// }
+
+// // 8.
+// var laterDate = new Date(2020, 11, 31, 0);
+// document.write("Later date: " + laterDate)
+
+// 9.
+// var ramzanDate = new Date("2015-6-18");
+// var today = new Date();
+// var difference = today.getTime() - ramzanDate.getTime();
+// var daysPassed = difference / 1000 / 60 / 60 / 24
+// document.write(Math.floor(daysPassed) + " days have passed since 1st Ramadan, 2015")
+
+// // 10.
+// var refDate = new Date(2015, 11, 5, 22, 50, 16);
+// var beginning = new Date(2015, 0);
+// var difference = refDate.getTime() - beginning.getTime();
+// document.write("On reference date " + refDate);
+// document.write("<br>" + difference / 1000)
+
+// // 11.
+// var date = new Date();
+// document.write("current date: " + date);
+// var hours = date.getHours();
+// var oneHourAgo = new Date(date.setHours(hours - 1))
+// document.write("<br> 1 hour ago, it was " + oneHourAgo)
+
+// // 12.
+// var date = new Date();
+// document.write("current date: " + date);
+// var years = date.getFullYear();
+// var hundredYearsAgo = new Date(date.setFullYear(years - 100))
+// document.write("<br> 100 years back, it was " + hundredYearsAgo)
+
+// // 13.
+// var age = +prompt("Enter your age");
+// var currentYear = new Date().getFullYear();
+// var birthYear = currentYear - age;
+// document.write("Your age is " + age);
+// document.write("<br> Your birth year is " + birthYear);
+
+// // 14.
+// var customerName = "ABC Customer";
+// var currentMonth = "February";
+// var units = 410;
+// var perUnit = 16;
+// var payableInDueDate = units * perUnit;
+// var latePaymentSurcharge = 350;
+// var payableAfterDueDate = payableInDueDate + latePaymentSurcharge;
+
+// document.write("<h1>K-Electric Bill</h1>")
+// document.write("<br> Customer Name: " + customerName)
+// document.write("<br> Month: " + currentMonth)
+// document.write("<br> Number of units: " + units)
+// document.write("<br> Charges per unit: " + perUnit)
+// document.write("<br><br> Net Amount Payable (within Due Date): " + payableInDueDate.toFixed(2))
+// document.write("<br> Late payment surcharge: " + latePaymentSurcharge)
+// document.write("<br> Gross Amount Payable (after Due Date): " + payableAfterDueDate.toFixed(2))

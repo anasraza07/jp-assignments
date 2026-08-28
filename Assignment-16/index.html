@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+        <div class="screen"></div>
+
+        <table>
+            <tr>
+                <td>
+                    <button onclick="cut()">C</button>
+                </td>
+                <td>
+                    <button onclick="allClear()">AC</button>
+                </td>
+                <td colspan="2">
+                    <button style="width: 100%;" onclick="showNumber('/')">/</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <button onclick="showNumber('7')">7</button>
+                </td>
+                <td>
+                    <button onclick="showNumber('8')">8</button>
+                </td>
+                <td>
+                    <button onclick="showNumber('9')">9</button>
+                </td>
+                <td>
+                    <button onclick="showNumber('*')">x</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <button onclick="showNumber('4')">4</button>
+                </td>
+                <td>
+                    <button onclick="showNumber('5')">5</button>
+                </td>
+                <td>
+                    <button onclick="showNumber('6')">6</button>
+                </td>
+                <td><button>-</button></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <button onclick="showNumber('1')">1</button>
+                </td>
+                <td>
+                    <button onclick="showNumber('2')">2</button>
+                </td>
+                <td>
+                    <button onclick="showNumber('3')">3</button>
+                </td>
+                <td>
+                    <button onclick="showNumber('+')">+</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <button onclick="showNumber('0')">0</button>
+                </td>
+                <td>
+                    <button onclick="showNumber('.')">.</button>
+                </td>
+                <td colspan="2"><button class="expand" onclick="calculate()">=</button></td>
+            </tr>
+        </table>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

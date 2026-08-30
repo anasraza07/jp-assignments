@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo</title>
+</head>
+
+<body>
+  <main>
+    <h1>Todo task</h1>
+    <input type="text">
+    <button onclick="addTodo(this)">add</button>
+    <button onclick="deleteAll(this)">delete</button>
+
+    <ul> </ul>
+  </main>
+
+  <script>
+    function addTodo(elem) {
+      var list = elem.nextElementSibling.nextElementSibling;
+      var input = elem.previousElementSibling;
+      if (input.value) {
+        list.innerHTML += `
+          <li>
+            <span>${input.value}</span>
+            <button onclick="editTodo(this)">edit</button>
+            <button onclick="deleteTodo(this)">delete</button>  
+          </li>
+        `;
+        input.value = ""
+      }
+    }
+
+    function deleteAll(elem) {
+      var list = elem.nextElementSibling;
+      list.innerHTML = "";
+    }
+
+    function editTodo(elem) {
+      var prevItem = elem.previousElementSibling;
+      var newItem = prompt("Enter new todo", prevItem.innerText)
+      prevItem.innerText = newItem;
+    }
+
+    function deleteTodo(elem) {
+      var prevItem = elem.parentElement;
+      prevItem.remove();
+    }
+  </script>
+</body>
+
+</html>

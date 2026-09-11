@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 17</title>
+    <style>
+        .id-card {
+            border: 1px solid red;
+            max-width: 500px;
+            display: none;
+            padding: 12px;
+            border-radius: 16px;
+        }
+
+        .heading img {
+            margin-left: -12px;
+        }
+
+        .data {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .small {
+            font-size: 10px;
+        }
+
+        .image {
+            width: 100px;
+            height: 100px;
+            border-radius: 4px;
+            overflow: hidden;
+            /* border: 1px solid green; */
+        }
+
+        .image img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .new-form {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="page-heading">Student Form</h1>
+    <div class="form">
+        <p>Please fill up the form to generate id card.</p>
+        <input type="text" id="student-id" placeholder="Student Id">
+        <br><br>
+        <input type="text" id="student-name" placeholder="Student Name">
+        <br><br>
+        <input type="text" id="student-father" placeholder="Father/Guardian">
+        <br><br>
+        <input type="text" id="student-class" placeholder="Class">
+        <br><br>
+        <input type="number" id="student-call" placeholder="Emergency Call">
+        <br><br>
+        <span>Your image: </span><input type="file" id="student-image">
+        <br><br>
+        <button onclick="generateIdCard()">Generate ID Card</button>
+    </div>
+
+    <div class="id-card">
+        <div class="heading">
+            <img src="./assets/logo.jpg" alt="" width="120">
+        </div>
+
+        <div class="data">
+            <div class="info">
+                <strong>Student ID : <span id="card-id">123456</span></strong><br>
+                <strong>Student Name : <span id="card-name">Alveena S. Kudhus</span></strong><br>
+                <strong>Father/Guardian : <span id="card-father">Salam Kudhus</span></strong><br>
+                <strong>Class : <span id="card-class">1st 'A'</span></strong><br>
+                <strong>Emergency Call : <span id="card-call">97905 47171</span></strong><br>
+            </div>
+
+            <div class="image">
+                <img id="card-image" src="" alt="">
+            </div>
+        </div>
+    </div>
+    <br>
+    <button class="new-form" onclick="backToForm()">New Form</button>
+
+
+    <script>
+        var studentId = document.getElementById("student-id");
+        var studentName = document.getElementById("student-name");
+        var studentFather = document.getElementById("student-father");
+        var studentClass = document.getElementById("student-class");
+        var studentCall = document.getElementById("student-call");
+        var studentImage = document.getElementById("student-image");
+
+        var cardId = document.getElementById("card-id");
+        var cardName = document.getElementById("card-name");
+        var cardFather = document.getElementById("card-father");
+        var cardClass = document.getElementById("card-class");
+        var cardCall = document.getElementById("card-call");
+        var cardImage = document.getElementById("card-image");
+
+        function generateIdCard() {
+            console.log("Submitted");
+
+            // console.log(studentImage)
+            var selectFiles = studentImage.files;
+            // console.log(studentImage.files[0])
+
+            cardId.innerText = studentId.value;
+            cardName.innerText = studentName.value;
+            cardFather.innerText = studentFather.value;
+            cardClass.innerText = studentClass.value;
+            cardCall.innerText = studentCall.value;
+
+            if (selectFiles.length) {
+                var tempUrl = URL.createObjectURL(selectFiles[0]);
+                cardImage.src = tempUrl;
+            } else {
+                cardImage.src = "./assets/placeholder.jpg"
+            }
+
+
+
+
+            var inputs = document.querySelectorAll("input");
+            for (var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+                input.value = "";
+            }
+
+            document.querySelector(".form").style.display = "none";
+            document.querySelector(".page-heading").innerText = "Student ID Card"
+            document.querySelector(".id-card").style.display = "block";
+            document.querySelector(".new-form").style.display = "block"
+        }
+
+        function backToForm() {
+            document.querySelector(".page-heading").innerText = "Student Form";
+            document.querySelector(".form").style.display = "block";
+            document.querySelector(".id-card").style.display = "none"
+            document.querySelector(".new-form").style.display = "none"
+        }
+    </script>
+</body>
+
+</html>

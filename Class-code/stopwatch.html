@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic lights</title>
+</head>
+
+<body>
+  <!-- <h1>Traffic lights</h1> -->
+  <h2>Stop watch</h2>
+  <span class="hours">00</span>
+  <span class="mins">00</span>
+  <span class="seconds">00</span>
+  <span class="m-seconds">000</span>
+  <br><br>
+  <button>start</button>
+  <button onclick="stop()">stop</button>
+  <button>reset</button>
+
+  <script>
+    // TRAFFIC LIGHT
+    // var lights = ["red", "yellow", "green"]
+    // var index = 0;
+
+    // function changeLight() {
+    //     console.log(lights[index]);
+    //     index++
+
+    //     if (index == lights.length) {
+    //         index = 0;
+    //     }
+    // }
+
+    var milliSeconds = 0;
+    var seconds = 0;
+    var minutes = 0;
+    var hours = 0;
+
+    var timer = setInterval(() => {
+      // var date = new Date();
+
+      // console.log(date)
+      // console.log(date.getHours())
+      // console.log(date.getMinutes())
+      // console.log(date.getSeconds())
+
+      // var hours = date.getHours()
+      // var mins = date.getMinutes()
+      // var seconds = date.getSeconds()
+      milliSeconds += 10;
+      console.log(milliSeconds)
+
+      if (milliSeconds > 999) {
+        milliSeconds = 0
+        seconds += 1;
+
+        if (seconds > 59) {
+          seconds = 0
+          minutes++
+
+          if (minutes > 59) {
+            minutes = 0
+            hours++;
+
+            if (hours > 23) {
+              hours = 0;
+            }
+          }
+        }
+      }
+
+      document.querySelector(".m-seconds").innerText = milliSeconds;
+      document.querySelector(".seconds").innerText = seconds;
+      document.querySelector(".mins").innerText = minutes;
+      document.querySelector(".hours").innerText = hours;
+
+
+    }, 10)
+  </script>
+</body>
+
+</html>

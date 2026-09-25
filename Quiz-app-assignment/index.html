@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <style>
+        body {
+            background-color: #ECF5FF;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333333;
+        }
+
+        .container {
+            padding: 40px 12px 12px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .quiz-board {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .ques-detail {
+            border: 2px solid green;
+        }
+
+        .question-number {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .quiz-progress-bar {
+            border: 2px solid #56A5EB;
+            height: 20px;
+            width: 150px;
+        }
+
+        .quiz-progress-bar .fill {
+            background-color: #56A5EB;
+            height: 100%;
+        }
+
+        .score-detail {
+            text-align: center;
+        }
+
+        .score-number {
+            color: #56A5EB;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: white;
+            margin-bottom: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        ul li:hover {
+            box-shadow: 1px 1px 8px #56a6eb63;
+        }
+
+
+        .option-order {
+            background-color: #56A5EB;
+            color: white;
+            font-weight: 700;
+            padding: 12px 20px;
+            display: inline-block;
+        }
+
+        .option-order+span {
+            padding: 12px;
+        }
+
+        .quiz-footer {
+            text-align: center;
+            height: 100;
+            display: none;
+        }
+
+        .quiz-result {
+            color: #56A5EB;
+            font-size: 60px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .quiz-footer button {
+            padding: 4px 12px;
+            background-color: #fff;
+            color: #56A5EB;
+            border: 1px solid #56A5EB;
+            cursor: pointer;
+        }
+
+        .quiz-footer button:hover {
+            box-shadow: 1px 1px 8px #56a6eb63;  
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="quiz-board">
+            <div class="question-detail">
+                <div class="question-number"></div>
+                <div class="quiz-progress-bar">
+                    <div class="fill"></div>
+                </div>
+            </div>
+            <div class="score-detail">
+                <div class="text">Score</div>
+                <div class="score-number"></div>
+            </div>
+        </div>
+
+        <div class="quiz-body">
+            <h2 class="question"></h2>
+            <ul class="options"></ul>
+        </div>
+
+        <div class="quiz-footer">
+            <div class="quiz-result"></div>
+            <button class="play-again-btn">Play Again</button>
+        </div>
+    </div>
+    </div>
+</body>
+
+<script>
+    var quizData = [
+        {
+            question: "What is the chemical symbol for water?",
+            answer: "H2O",
+            options: ["CO2", "H2O", "O2", "NaCl"]
+        },
+        {
+            question: "Which planet in our solar system is known as the Red Planet?",
+            answer: "Mars",
+            options: ["Venus", "Saturn", "Mars", "Jupiter"]
+        },
+        {
+            question: "How many bones are in the adult human body?",
+            answer: "206",
+            options: ["150", "206", "310", "180"]
+        },
+        {
+            question: "What is the highest mountain in the world by elevation?",
+            answer: "Mount Everest",
+            options: ["K2", "Mount Kilimanjaro", "Mount Everest", "Denali"]
+        },
+        {
+            question: "Which fruit has its seeds on the outside?",
+            answer: "Strawberry",
+            options: ["Apple", "Strawberry", "Banana", "Blueberry"]
+        },
+        {
+            question: "Who developed the theory of relativity?",
+            answer: "Albert Einstein",
+            options: ["Isaac Newton", "Galileo Galilei", "Albert Einstein", "Nikola Tesla"]
+        },
+        {
+            question: "Which country has hosted the modern Olympic Games the most times?",
+            answer: "United States",
+            options: ["United Kingdom", "France", "United States", "Japan"]
+        },
+        {
+            question: "Which is the largest ocean on Earth?",
+            answer: "Pacific Ocean",
+            options: ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"]
+        },
+        {
+            question: "What is the capital city of France?",
+            answer: "Paris",
+            options: ["Berlin", "Madrid", "Rome", "Paris"]
+        },
+        {
+            question: "How many colors are there in a rainbow?",
+            answer: "7",
+            options: ["5", "6", "7", "8"]
+        }
+    ];
+    var quizNumber = document.querySelector(".question-number");
+    var question = document.querySelector(".question");
+    var optionList = document.querySelector(".options");
+    var scoreElem = document.querySelector(".score-number");
+    var progressBar = document.querySelector(".quiz-progress-bar .fill");
+    var quizResult = document.querySelector(".quiz-result");
+    var quizBoard = document.querySelector(".quiz-board");
+    var quizBody = document.querySelector(".quiz-body");
+    var quizFooter = document.querySelector(".quiz-footer");
+    var playAgainBtn = document.querySelector(".play-again-btn");
+
+    var index = 0;
+    var quiz = {};
+    var score = 0;
+
+    quiz = quizData[index]
+    progressBar.style.width = `${(index + 1) / 10 * 100}%`
+    scoreElem.innerText = score;
+
+    function next() {
+        quiz = quizData[index]
+        progressBar.style.width = `${(index + 1) / 10 * 100}%`
+        scoreElem.innerText = score;
+    }
+
+    function renderCurrQuiz() {
+        quizNumber.innerText = `Question ${index + 1}/${quizData.length}`
+        question.innerText = `${quiz.question}`
+        optionList.innerHTML = quiz.options.map((option, ind) => {
+            var order = "A";
+            switch (ind) {
+                case 0:
+                    order = "A";
+                    break;
+                case 1:
+                    order = "B";
+                    break;
+                case 2:
+                    order = "C";
+                    break;
+                case 3:
+                    order = "D";
+                    break;
+                default:
+                    break;
+            }
+
+            return `<li><span class="option-order">${order}</span><span>${option}</span></li>`
+        }).join("")
+
+        var options = document.querySelectorAll(".options li");
+        options.forEach(option => {
+            option.addEventListener("click", () => {
+                var sliced = option.innerText.slice(1)
+                console.log(sliced)
+                if (sliced == quiz.answer) {
+                    option.style.backgroundColor = "#008000cc"
+                    score += 10;
+                } else {
+                    option.style.backgroundColor = "#ee0000cc"
+                }
+
+                index++;
+                console.log(index);
+                if (index >= quizData.length) {
+                    clearAndHide();
+                    return;
+                }
+                next();
+                setTimeout(renderCurrQuiz, 300)
+            })
+        })
+    }
+    renderCurrQuiz();
+
+    function clearAndHide() {
+        quizBoard.style.display = "none";
+        quizBody.style.display = "none";
+
+        quizFooter.style.display = "block"
+        quizResult.innerText = `${score}/${quizData.length * 10}`
+
+
+    }
+
+    playAgainBtn.addEventListener("click", playAgain);
+
+    function playAgain() {
+        index = 0;
+        score = 0;
+
+        quiz = quizData[index]
+        progressBar.style.width = `${(index + 1) / 10 * 100}%`
+        scoreElem.innerText = score;
+
+        quizBoard.style.display = "flex";
+        quizBody.style.display = "block";
+
+        quizFooter.style.display = "none"
+        renderCurrQuiz();
+    }
+</script>
+
+</html>

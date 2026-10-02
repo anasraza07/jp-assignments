@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User authentication - Login</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <input type="email" id="email" placeholder="Email">
+    <br><br>
+    <input type="password" id="password" placeholder="Password">
+    <p><a href="./index.html">Create new account</a></p>
+    <button>Login</button>
+
+    <script>
+        var email = document.getElementById("email")
+        var password = document.getElementById("password")
+        var loginBtn = document.querySelector("button")
+
+        loginBtn.addEventListener("click", function () {
+            if (!email.value || !password.value) {
+                alert("Both fields are required!")
+                return;
+            }
+
+            // console.log(this)
+            var user = {
+                email: email.value,
+                password: password.value
+            }
+
+            var users = JSON.parse(localStorage.getItem("users"));
+            var isLoggedIn = false;
+
+            for (var i = 0; i < users?.length; i++) {
+                var currUser = users[i];
+
+                if (currUser.email == email.value && currUser.password == password.value) {
+                    isLoggedIn = true;
+                    localStorage.setItem("user", currUser.fullName)
+                    break;
+                }
+            }
+
+            if (!isLoggedIn) {
+                alert("Invalid credentials!")
+            } else {
+                alert("Login successful.")
+                window.location.replace("./index.html")
+            }
+
+
+            email.value = ""
+            password.value = ""
+        })
+    </script>
+</body>
+
+</html>

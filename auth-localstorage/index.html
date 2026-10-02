@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        h2 {
+            color: brown;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        span {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Home Page</h1>
+    <button>Logout</button>
+
+    <h2></h2>
+
+    <script>
+        var user = localStorage.getItem("user");
+        console.log(user)
+
+        if (user) {
+            const h2 = document.querySelector("h2");
+            h2.innerHTML = `Hi, <span>${user}</span>`;
+        } else {
+            window.location.replace("./signup.html")
+        }
+
+        var logoutBtn = document.querySelector("button");
+        logoutBtn.addEventListener("click", function () {
+            localStorage.setItem("user", "");
+            window.location.reload();
+        })
+    </script>
+</body>
+
+</html>

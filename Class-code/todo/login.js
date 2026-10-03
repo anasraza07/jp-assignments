@@ -12,6 +12,8 @@ loginBtn.addEventListener("click", function () {
             // Signed in 
             const user = userCredential.user;
             console.log("login successful", user)
+
+            window.location.replace("./")
             // ...
         })
         .catch((error) => {
